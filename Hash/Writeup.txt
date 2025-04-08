@@ -1,0 +1,86 @@
+Hash Table Variations: Analysis and Benchmark Report
+
+
+Overview
+In this report, three hash table collision resolution methods are compared and analyzed:
+
+Chaining with Vector
+
+Chaining with List
+
+Linear Probing
+
+Each of the three variations was benchmarked against three test datasets: no_collision, low_collision, and high_collision. Operations that were tested include insert, search, and delete. Performance was also tested against various load factors and table sizes.
+
+1. Chaining with Vector
+Performance
+Insert: Fastest in the no_collision dataset. Works fine in all datasets, thanks to direct access via hashing and efficient memory layout of vectors.
+
+Search: Average case is O(1), but degrades to O(n) within buckets under high collision. Vector’s random-access benefits are less relevant in long chains.
+
+Delete: Fast with std::vector::erase(), but may become slightly slower than lists in long chains due to internal memory reallocations.
+
+Memory Usage
+Somewhat more than lists due to vector capacity mappings.
+
+Delivers better cache locality than lists and thereby provides superior performance with a medium load.
+
+2. Chaining on List
+Performance
+Insert: Somewhat slower than vector due to pointer costs and lowered efficiency of caches.
+
+Search: Same asymptotically optimal behavior as chaining the vector; a little slower due to non-consecutive memory.
+
+Delete: Quite efficient, as std::list allows erasing in-place without having to slide elements around.
+
+Memory Usage
+Higher than vectors due to the pointer cost of a node.
+
+Resists more deletions in high deletion rate datasets due to effective deletion.
+
+3. Linear Probing
+Performance
+Insert: Very fast in no_collision dataset. Deteriorates significantly in high_collision due to clustering.
+
+Search: Fast when table is sparse; performance deteriorates with higher load factor (due to longer probe sequences).
+
+Delete: Most advanced of the three. Deletion must be treated with care so that probe sequences are not lost (tombstone strategy or rehashing).
+
+Memory Usage
+Most memory-effective since all information is accessed from the base array.
+
+Spreads out in primary clustering, hence very sensitive to load factors above 0.7.
+
+Threshold Experiments and Table Size Effects
+Load Factor ≤ 0.5: All methods were good. Linear probing had the benefit of instantaneous speed.
+
+Load Factor 0.75–0.9:
+
+Linear probing was hit by big probing times.
+
+Chaining methods were comparatively uniform in performance.
+
+Smaller Table Sizes:
+Chaining methods performed better at resizing due to separate chaining.
+
+Linear probing hit performance walls quickly, so resizing had to occur.
+
+Bigger Table Sizes:
+
+Beneficial to all variations, but more to linear probing.
+
+Summary Table
+Variation          Insert     Search       Delete        Memory Use      Best On
+Vector Chaining   ✅ Fast   ✅ Fast    ✅ Moderate      ⚠️ Medium   Low-Mid Collision
+List Chaining   ✅ Moderate✅ Moderate  ✅ Fast       ⚠️ High High Deletion/Collision
+Linear Probing    ✅ Fast  ⚠️ Slower    ⚠️ Tricky        ✅ Low      No Collision
+Conclusion
+There is no one hash table variation that's optimal for every scenario:
+
+Use Linear Probing when space is crucial and collisions are low.
+
+Use Vector Chaining for everyday use with balanced performance.
+
+Use List Chaining when deletions are frequent and there are frequent collisions.
+
+Potential future extensions include Quadratic Probing, Double Hashing, and AVL tree chaining for further study of performance tradeoffs.
