@@ -1,0 +1,77 @@
+📊 Smart City Traffic Network Management System
+Overview
+This project simulates a Smart City Traffic Network Management System using advanced data structures to efficiently track, manage, and optimize traffic flows in a modern urban environment. The system combines real-time updates, historical logging, and graph-based traffic route optimization using:
+
+Hash Tables for fast access to intersection data
+
+AVL Trees to rank intersections by traffic load
+
+DSW Trees for storing and rebalancing historical traffic data
+
+Union-Find structures for detecting and managing congested zones (clusters)
+
+Minimum Spanning Tree (MST) algorithms with both binary and binomial heap-based approaches to optimize road usage and connectivity
+
+⚙️ Features
+Intersection Management
+Tracks current vehicle counts, updates traffic metrics, and stores timestamped traffic data for each intersection.
+
+Traffic Congestion Clustering
+Uses Union-Find to dynamically group intersections experiencing heavy traffic, enabling rapid congestion response.
+
+Traffic Ranking System
+AVL Trees maintain a self-balancing list of intersections, ranked by vehicle count, allowing fast retrieval of the most congested points in descending order.
+
+Historical Data Logging
+DSW Trees log time-series data per intersection and rebalance themselves to allow efficient search and analysis of historical trends.
+
+Network Optimization via MST
+Two Kruskal’s algorithm variants construct optimal traffic flow networks:
+
+Binary Heap + Quick Union
+
+Binomial Heap + Union by Size + Path Compression
+
+🧠 Data Structures Used
+
+Structure	Purpose
+Hash Table	Maps intersection IDs to their current data
+AVL Tree	Ranks intersections by live traffic volume
+DSW Tree	Stores timestamped historical traffic data per intersection
+Union-Find	Tracks and merges sets of congested intersections (clusters)
+Binary Heap	Used in MST variant for Kruskal’s algorithm
+Binomial Heap	Simulated using std::multiset for MST with improved merging features
+🧩 Example Use Case
+Each intersection's traffic count is updated and logged.
+
+AVL Tree ranks these intersections by live data.
+
+The DSW Tree logs every timestamped vehicle count, and periodically rebalances.
+
+Union-Find groups intersections experiencing heavy simultaneous congestion.
+
+MST algorithms generate optimal traffic routing maps, helping city planners decide where to deploy resources.
+
+🗃️ Project Structure (Suggested Files)
+main.cpp — Main logic and simulation
+
+Intersection.h/cpp — Intersection class (with DSW and vehicle count)
+
+AVLTree.h/cpp — AVL Tree for live traffic ranking
+
+DSWTree.h/cpp — Historical data storage
+
+UnionFind.h/cpp — Union-Find for congestion zones
+
+MSTGraph.h/cpp — MST algorithms and graph representation
+
+💡 Future Enhancements
+Integrate real-time data sources (e.g., from IoT sensors)
+
+Add visualization for traffic network and MST
+
+Provide web dashboard using a frontend framework
+
+Use a real binomial heap implementation
+
+Detect traffic anomalies or outliers via statistical models or ML
