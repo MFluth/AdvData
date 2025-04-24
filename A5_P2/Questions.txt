@@ -1,0 +1,21 @@
+1. How does a binomial heap improve Kruskal’s algorithm efficiency compared to a binary heap?
+A binomial heap offers more efficient heap merge operations (O(log n) vs. O(n) in binary heap), which can be beneficial in variations of Kruskal’s that involve merging heaps (e.g., parallel processing). For standard Kruskal’s, the improvement is minimal unless merges are frequent.
+
+2. How does union-find with path compression and union by size improve performance?
+It reduces the time complexity of each find/union operation to nearly amortized O(1). This speeds up cycle checks significantly, especially in large graphs with many edges.
+
+3. Timing observations and time complexity:
+Binary Heap + Basic Union-Find:
+Time Complexity: O(E log E + E log V)
+
+Slower due to higher union-find costs and less efficient heap operations.
+
+Binomial Heap + Optimized Union-Find:
+Time Complexity: O(E log E + α(V) * E) (where α is inverse Ackermann function)
+
+Faster in practice, especially on dense graphs, due to near-constant-time union-find operations.
+
+Observation:
+Optimized version consistently runs faster.
+
+Performance gain increases with graph size.
